@@ -1,0 +1,6 @@
+Use Arrow Keys to move car
+Use 'r' to turn car to red
+Use 'g' to turn car to green
+Use 'p' to turn car to purple
+Use 'x' to quit game
+
