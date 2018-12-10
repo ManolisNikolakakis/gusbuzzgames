@@ -10,7 +10,7 @@ black = 0, 0, 0
 screen = pygame.display.set_mode(size)
 
 pygame.mixer.init()
-pygame.mixer.music.load('resources/sounds/Game_Tune_1_Sample_1.mp3')
+pygame.mixer.music.load('resources/sounds/Tune1.mp3')
 pygame.mixer.music.play(-1)
 
 backGround = BackGround('resources/images/game_image.jpg', [0, 0])
