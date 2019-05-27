@@ -65,12 +65,24 @@ def refill_screen():
  
     text = font.render(current_letter, True, settings.WHITE)
     screen.blit(text, [10, 100])
+
+    text = font.render("Countdown", True, settings.WHITE)
+    screen.blit(text, [10, 150])
+
+    text = font.render(str(counter), True, settings.WHITE)
+    screen.blit(text, [10, 180])
         
     pygame.display.flip()
 
 # Game Script Starting Point
 
 screen = pygame.display.set_mode(settings.SIZE)
+
+clock = pygame.time.Clock()
+clock.tick(60)
+
+counter = 3
+pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 load_settings()
 load_splash_screen()
@@ -80,6 +92,7 @@ pygame.mixer.music.load(settings.MAIN_TUNE)
 pygame.mixer.music.play(settings.INFINITE_MUSIC_LOOP)
 
 backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
+start_ticks= clock.tick() #starter tick
 
 while True:
     for event in pygame.event.get():
@@ -89,10 +102,22 @@ while True:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter]:
         	    score = int(score) + 10
         	    score = str(score)
+        	    counter = 3
             else:
                 score = int(score) - 10
                 score = str(score)
             current_letter = random.choice(settings.LETTERS_EASY)
+            start_ticks=pygame.time.get_ticks() #starter tick
+        elif event.type == pygame.USEREVENT:
+            print ("SHABLAGOO")
+            counter = counter - 1
+            if counter < 0:
+                score = int(score) - 10
+                score = str(score)
+                current_letter = random.choice(settings.LETTERS_EASY)
+                counter = 3
+                refill_screen()
+        break
 
     refill_screen()
 
