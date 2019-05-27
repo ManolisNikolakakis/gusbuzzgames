@@ -19,9 +19,13 @@ BACKGROUND_IMAGE = 'resources/images/game_image.jpg'
 BACKGROUND_IMAGE_STARTING_POINT = (0, 0)  # Always start from the top
 
 
-# DIFFICULTY #
+# DIFFICULTY # 
 
+
+# TO BE CHECKED BECAUSE THE LETTERS AT THE MOMENT ARE COMPLETELY RANDOM
 LETTERS_EASY = ['D', 'F', 'J', 'K']
+LETTERS_MEDIUM = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L']
+LETTERS_HARD = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L', 'Q', 'W', 'P', 'O', 'C', 'V', 'N', 'M', 'G', 'T', 'B']
 
 DIFFICULTY = {
     'easy': (
@@ -61,8 +65,23 @@ DIFFICULTY = {
 }
 
 MATCHING_EVENTS_TO_LETTERS = {
+    'A': pygame.K_a,
+    'S': pygame.K_s,
     'D': pygame.K_d,
     'F': pygame.K_f,
+    'H': pygame.K_h,
     'J': pygame.K_j,
-    'K': pygame.K_k
+    'K': pygame.K_k,
+    'L': pygame.K_l,
+    'Q': pygame.K_q,
+    'W': pygame.K_w,
+    'P': pygame.K_p,
+    'O': pygame.K_o,
+    'C': pygame.K_c,
+    'V': pygame.K_v,
+    'N': pygame.K_n,
+    'M': pygame.K_m,
+    'G': pygame.K_g,
+    'T': pygame.K_t,
+    'B': pygame.K_b
 }

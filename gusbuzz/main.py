@@ -17,7 +17,9 @@ pygame.init()
 
 score = "0"
 font = pygame.font.Font(None, 36)
-current_letter = random.choice(settings.LETTERS_EASY)
+current_letter = None
+difficulty = None
+difficulty_selected = False
 
 # Functions used in the game
 
@@ -38,9 +40,38 @@ def load_splash_screen():
     pygame.display.flip()
 
     time.sleep(1)
-    
-    text = font.render("PRESS F TO CONTINUE", True, settings.RED)
-    screen.blit(text, [310, 380])      
+
+def difficulty_selection(difficulty):
+    text = font.render("PRESS E FOR EASY (4 letters)", True, settings.RED)
+    screen.blit(text, [310, 380])   
+
+    text = font.render("PRESS M FOR MEDIUM (8 letters)", True, settings.RED)
+    screen.blit(text, [310, 410])   
+
+    text = font.render("PRESS H FOR HARD (19 letters)", True, settings.RED)
+    screen.blit(text, [310, 440])    
+
+    pygame.display.flip()
+
+    difficulty_selected = False
+
+    while not difficulty_selected:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
+                difficulty = settings.LETTERS_EASY
+                return difficulty
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
+                difficulty = settings.LETTERS_MEDIUM
+                return difficulty
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
+                difficulty = settings.LETTERS_HARD
+                return difficulty
+
+def ready_to_start():
+    screen.fill(settings.BLACK)
+
+    text = font.render("PRESS F TO START", True, settings.RED)
+    screen.blit(text, [310, 270])    
 
     pygame.display.flip()
 
@@ -86,6 +117,10 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 load_settings()
 load_splash_screen()
+difficulty = difficulty_selection(difficulty)
+ready_to_start()
+
+current_letter = random.choice(difficulty)
 
 pygame.mixer.init()
 pygame.mixer.music.load(settings.MAIN_TUNE)
@@ -106,7 +141,7 @@ while True:
             else:
                 score = int(score) - 10
                 score = str(score)
-            current_letter = random.choice(settings.LETTERS_EASY)
+            current_letter = random.choice(difficulty)
             start_ticks=pygame.time.get_ticks() #starter tick
         elif event.type == pygame.USEREVENT:
             print ("SHABLAGOO")
@@ -114,7 +149,7 @@ while True:
             if counter < 0:
                 score = int(score) - 10
                 score = str(score)
-                current_letter = random.choice(settings.LETTERS_EASY)
+                current_letter = random.choice(difficulty)
                 counter = 3
                 refill_screen()
         break
