@@ -4,6 +4,9 @@ import pygame
 
 SIZE = WIDTH, HEIGHT = 900, 600
 BLACK = 0, 0, 0
+WHITE = 255, 255, 255
+GREEN = 0, 255, 0
+RED = 255, 0, 0
 
 # MUSIC #
 

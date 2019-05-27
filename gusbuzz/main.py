@@ -1,4 +1,9 @@
+# Standard Libraries
+
 import sys
+import time
+
+# Pip installed libraries
 
 import pygame
 
@@ -9,13 +14,8 @@ pygame.init()
 
 # Variable used in the game 
 
-score = 0
+score = "0"
 font = pygame.font.Font(None, 36)
-
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
 
 # Functions used in the game
 
@@ -24,23 +24,30 @@ def load_settings():
     pygame.display.set_caption("Some Video Game")
 
 def load_splash_screen():
-    text = font.render("Presented by", True, WHITE)
+
+    text = font.render("Current Score", True, settings.WHITE)
+    screen.blit(text, [10, 10])
+
+    text = font.render("Presented by", True, settings.WHITE)
     screen.blit(text, [450, 300])
- 
-    text = font.render("GusBuzzGames", True, RED)
+
+    text = font.render("GusBuzzGames", True, settings.RED)
     screen.blit(text, [450, 330])
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-            return
-        elif event.type == pygame.KEYDOWN:
-            return
+    time.sleep(3)
+    
+    text = font.render("PRESS F TO CONTINUE", True, settings.RED)
+    screen.blit(text, [450, 420])      
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+                return
 
 # Game Script Starting Point
 
 screen = pygame.display.set_mode(settings.SIZE)
+screen.fill(settings.BLACK)
 
 load_settings()
 load_splash_screen()
@@ -51,10 +58,10 @@ pygame.mixer.music.play(settings.INFINITE_MUSIC_LOOP)
 
 backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
 
-text = font.render("Current Score", True, WHITE)
+text = font.render("Current Score", True, settings.WHITE)
 screen.blit(text, [10, 10])
  
-text = font.render(score, True, WHITE)
+text = font.render(score, True, settings.WHITE)
 screen.blit(text, [10, 40])
 
 while True:
