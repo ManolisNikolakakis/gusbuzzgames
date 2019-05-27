@@ -21,10 +21,12 @@ font = pygame.font.Font(None, 36)
 
 
 def load_settings():
+	# pygame.display.set_icon(surface)
+    screen = pygame.display.set_mode(settings.SIZE)
+    screen.fill(settings.BLACK)
     pygame.display.set_caption("Some Video Game")
 
 def load_splash_screen():
-
     text = font.render("Current Score", True, settings.WHITE)
     screen.blit(text, [10, 10])
 
@@ -45,9 +47,6 @@ def load_splash_screen():
                 return
 
 # Game Script Starting Point
-
-screen = pygame.display.set_mode(settings.SIZE)
-screen.fill(settings.BLACK)
 
 load_settings()
 load_splash_screen()
