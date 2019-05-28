@@ -13,23 +13,26 @@ from assets import settings
 
 pygame.init()
 
-# Variable used in the game 
+# Variables used in the game 
 
-score = "0"
+score = 0
 font = pygame.font.Font(None, 36)
 current_letter = None
 difficulty = None
 difficulty_selected = False
+counter_starting_value = 3
+high_score = 0
 
 # Functions used in the game
 
 
-def load_settings():
-	# pygame.display.set_icon(surface)
-    screen.fill(settings.BLACK)
+def game_bootloader():
+	# pygame.display.set_icon(surface) // add some sort of icon to the game
     pygame.display.set_caption("Some Video Game")
 
 def load_splash_screen():
+
+    screen.fill(settings.BLACK)
 
     text = font.render("Presented by...", True, settings.WHITE)
     screen.blit(text, [350, 270])
@@ -53,21 +56,46 @@ def difficulty_selection(difficulty):
 
     pygame.display.flip()
 
-    difficulty_selected = False
-
     while not difficulty_selected:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
                 difficulty = settings.LETTERS_EASY
                 return difficulty
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_m:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_m:
                 difficulty = settings.LETTERS_MEDIUM
                 return difficulty
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_h:
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_h:
                 difficulty = settings.LETTERS_HARD
                 return difficulty
 
+def game_over():
+    screen.fill(settings.BLACK)
+
+    text = font.render("GAME OVER, ΜΥΞΙΑΡΙΚΟ", True, settings.RED)
+    screen.blit(text, [270, 270])
+
+    pygame.display.flip() 
+
+    time.sleep(2)
+
+    screen.fill(settings.BLACK)
+
+    text = font.render("GAME OVER, ΜΥΞΙΑΡΙΚΟ", True, settings.RED)
+    screen.blit(text, [270, 270])
+
+    text = font.render("PRESS R TO RETRY", True, settings.WHITE)
+    screen.blit(text, [270, 320])  
+    
+    pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
+                ready_to_start()
+                return
+
 def ready_to_start():
+
     screen.fill(settings.BLACK)
 
     text = font.render("PRESS F TO START", True, settings.RED)
@@ -85,10 +113,16 @@ def refill_screen():
     screen.fill(settings.BLACK)
     screen.blit(backGround.image, backGround.rect)
 
+    text = font.render("High Score", True, settings.WHITE)
+    screen.blit(text, [settings.WIDTH - 150, 10])
+
+    text = font.render(str(high_score), True, settings.WHITE)
+    screen.blit(text, [settings.WIDTH - 150, 40])
+
     text = font.render("Current Score", True, settings.WHITE)
     screen.blit(text, [10, 10])
  
-    text = font.render(score, True, settings.WHITE)
+    text = font.render(str(score), True, settings.WHITE)
     screen.blit(text, [10, 40])
 
     text = font.render("Random Letter", True, settings.WHITE)
@@ -112,10 +146,10 @@ screen = pygame.display.set_mode(settings.SIZE)
 clock = pygame.time.Clock()
 clock.tick(60)
 
-counter = 3
+counter = counter_starting_value
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-load_settings()
+game_bootloader()
 load_splash_screen()
 difficulty = difficulty_selection(difficulty)
 ready_to_start()
@@ -131,26 +165,30 @@ start_ticks= clock.tick() #starter tick
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter]:
-        	    score = int(score) + 10
-        	    score = str(score)
-        	    counter = 3
+        	    score = score + 10
+        	    counter = counter_starting_value
+        	    if score > high_score:
+        	    	high_score = score
             else:
-                score = int(score) - 10
-                score = str(score)
+                score = score - 10
+                if score < 0:
+                    score = 0;
+                    game_over()
             current_letter = random.choice(difficulty)
             start_ticks=pygame.time.get_ticks() #starter tick
         elif event.type == pygame.USEREVENT:
-            print ("SHABLAGOO")
             counter = counter - 1
+            if score < 0:
+                score = 0;
+                game_over()
             if counter < 0:
-                score = int(score) - 10
-                score = str(score)
+                score = score - 10
                 current_letter = random.choice(difficulty)
-                counter = 3
+                counter = counter_starting_value
                 refill_screen()
         break
 
