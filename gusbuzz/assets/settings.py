@@ -18,6 +18,9 @@ MAIN_TUNE = 'resources/sounds/Tune1.mp3'
 BACKGROUND_IMAGE = 'resources/images/game_image.jpg'
 BACKGROUND_IMAGE_STARTING_POINT = (0, 0)  # Always start from the top
 
+# SAVEFILES #
+
+SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
 
 # DIFFICULTY # 
 

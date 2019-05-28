@@ -68,6 +68,18 @@ def difficulty_selection(difficulty):
                 difficulty = settings.LETTERS_HARD
                 return difficulty
 
+def loadfile():
+    with open(settings.SAVE_LOCATION, "r") as f:
+        data = f.readlines()
+        for line in data:
+            words = line.split()
+            return words[0]
+
+def savefile():
+    with open(settings.SAVE_LOCATION, "w") as f:
+        f.write(str(high_score))
+        return
+
 def game_over():
     screen.fill(settings.BLACK)
 
@@ -152,6 +164,7 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 game_bootloader()
 load_splash_screen()
 difficulty = difficulty_selection(difficulty)
+high_score = int(loadfile())
 ready_to_start()
 
 current_letter = random.choice(difficulty)
@@ -166,6 +179,7 @@ start_ticks= clock.tick() #starter tick
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+            savefile()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter]:
