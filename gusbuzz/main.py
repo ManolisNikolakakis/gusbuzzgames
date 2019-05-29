@@ -3,6 +3,7 @@
 import sys
 import time
 import random
+from random import randint
 
 # Pip installed libraries
 
@@ -21,7 +22,11 @@ current_letter = None
 difficulty = None
 difficulty_selected = False
 counter_starting_value = 3
+counter = counter_starting_value
 high_score = 0
+letter_sprite = {}
+sprite_w = randint(200, 500)
+sprite_h = randint(200, 500)
 
 # Functions used in the game
 
@@ -60,6 +65,7 @@ def difficulty_selection(difficulty):
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
                 difficulty = settings.LETTERS_EASY
+                load_images(difficulty)
                 return difficulty
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_m:
                 difficulty = settings.LETTERS_MEDIUM
@@ -90,11 +96,6 @@ def game_over():
 
     time.sleep(2)
 
-    screen.fill(settings.BLACK)
-
-    text = font.render("GAME OVER, ΜΥΞΙΑΡΙΚΟ", True, settings.RED)
-    screen.blit(text, [270, 270])
-
     text = font.render("PRESS R TO RETRY", True, settings.WHITE)
     screen.blit(text, [270, 320])  
     
@@ -118,6 +119,7 @@ def ready_to_start():
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+                counter = counter_starting_value
                 return
 
 def refill_screen():
@@ -148,8 +150,15 @@ def refill_screen():
 
     text = font.render(str(counter), True, settings.WHITE)
     screen.blit(text, [10, 180])
+
+    screen.blit(letter_sprite[current_letter],(sprite_w,sprite_h))
         
     pygame.display.flip()
+
+def load_images(difficulty):
+    for letter in difficulty:
+        letter_sprite[letter] = pygame.image.load('resources/sprites/'+letter.lower()+'.png')
+    return
 
 # Game Script Starting Point
 
@@ -158,7 +167,6 @@ screen = pygame.display.set_mode(settings.SIZE)
 clock = pygame.time.Clock()
 clock.tick(60)
 
-counter = counter_starting_value
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 game_bootloader()
@@ -193,16 +201,20 @@ while True:
                     score = 0;
                     game_over()
             current_letter = random.choice(difficulty)
+            sprite_w = randint(150, settings.WIDTH - 200)
+            sprite_h = randint(0, 500)
             start_ticks=pygame.time.get_ticks() #starter tick
         elif event.type == pygame.USEREVENT:
             counter = counter - 1
             if counter < 0:
+                counter = counter_starting_value
                 score = score - 10
                 if score < 0:
                     score = 0;
                     game_over()
                 current_letter = random.choice(difficulty)
-                counter = counter_starting_value
+                sprite_w = randint(100, settings.WIDTH - 200)
+                sprite_h = randint(0, 500)
                 refill_screen()
         break
 
