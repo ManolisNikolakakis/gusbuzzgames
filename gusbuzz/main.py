@@ -196,11 +196,11 @@ while True:
             start_ticks=pygame.time.get_ticks() #starter tick
         elif event.type == pygame.USEREVENT:
             counter = counter - 1
-            if score < 0:
-                score = 0;
-                game_over()
             if counter < 0:
                 score = score - 10
+                if score < 0:
+                    score = 0;
+                    game_over()
                 current_letter = random.choice(difficulty)
                 counter = counter_starting_value
                 refill_screen()

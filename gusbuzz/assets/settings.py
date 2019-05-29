@@ -26,14 +26,14 @@ SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
 
 
 # TO BE CHECKED BECAUSE THE LETTERS AT THE MOMENT ARE COMPLETELY RANDOM
-LETTERS_EASY = ['D', 'F', 'J', 'K']
+LETTERS_EASY = ['D', 'S', 'J', 'K']
 LETTERS_MEDIUM = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L']
 LETTERS_HARD = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L', 'Q', 'W', 'P', 'O', 'C', 'V', 'N', 'M', 'G', 'T', 'B']
 
 DIFFICULTY = {
     'easy': (
         pygame.K_d,
-        pygame.K_f,
+        pygame.K_s,
         pygame.K_j,
         pygame.K_k
     ),
