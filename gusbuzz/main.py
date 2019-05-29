@@ -18,7 +18,7 @@ pygame.init()
 
 score = 0
 font = pygame.font.Font(None, 36)
-current_letter = None
+current_letter = ''
 difficulty = None
 difficulty_selected = False
 counter_starting_value = 3
@@ -135,7 +135,7 @@ def refill_screen():
 
     text = font.render("Current Score", True, settings.WHITE)
     screen.blit(text, [10, 10])
- 
+
     text = font.render(str(score), True, settings.WHITE)
     screen.blit(text, [10, 40])
 
@@ -150,15 +150,22 @@ def refill_screen():
 
     text = font.render(str(counter), True, settings.WHITE)
     screen.blit(text, [10, 180])
-
-    screen.blit(letter_sprite[current_letter],(sprite_w,sprite_h))
-        
+    
+    if difficulty == settings.LETTERS_EASY:
+        screen.blit(letter_sprite[current_letter],(sprite_w,sprite_h))
+    
     pygame.display.flip()
 
 def load_images(difficulty):
     for letter in difficulty:
         letter_sprite[letter] = pygame.image.load('resources/sprites/'+letter.lower()+'.png')
-    return
+    
+
+def randomize_variables():
+    current_letter = random.choice(difficulty)
+    sprite_w = randint(100, settings.WIDTH - 200)
+    sprite_h = randint(0, 500)
+    return current_letter, sprite_h, sprite_w
 
 # Game Script Starting Point
 
