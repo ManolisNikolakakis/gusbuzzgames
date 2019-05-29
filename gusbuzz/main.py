@@ -12,6 +12,10 @@ import pygame
 from assets.background import BackGround
 from assets import settings
 
+# Import classes
+
+from text import Text
+
 pygame.init()
 
 # Variables used in the game 
@@ -111,8 +115,11 @@ def ready_to_start():
 
     screen.fill(settings.BLACK)
 
-    text = font.render("PRESS F TO START", True, settings.RED)
-    screen.blit(text, [310, 270])    
+    # text = font.render("PRESS F TO START", True, settings.RED)
+    # screen.blit(text, [310, 270])    
+
+    start_message = Text("PRESS F TO START", 310, 270, settings.RED)
+    start_message.print_on_screen(font, screen)
 
     pygame.display.flip()
 
@@ -150,7 +157,7 @@ def refill_screen():
 
     text = font.render(str(counter), True, settings.WHITE)
     screen.blit(text, [10, 180])
-    
+
     if difficulty == settings.LETTERS_EASY:
         screen.blit(letter_sprite[current_letter],(sprite_w,sprite_h))
     
