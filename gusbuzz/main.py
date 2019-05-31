@@ -15,11 +15,12 @@ from assets import settings
 # Import classes
 
 from text import Text
+from letter import Letter
 from savefile import Savefile
 
 # Import other python files
 
-import HelperFunctions as hf
+import helperFunctions as hf
 
 pygame.init()
 
@@ -27,18 +28,14 @@ pygame.init()
 
 score = 0
 font = pygame.font.Font(None, 36)
-current_letter = ''
 difficulty = None
 difficulty_selected = False
 counter_starting_value = 3
 counter = counter_starting_value
 high_score = 0
 letter_sprite = {}
-sprite_w = randint(200, 500)
-sprite_h = randint(200, 500)
 
 # Functions used in the game
-
 
 def game_bootloader():
 	# pygame.display.set_icon(surface) // add some sort of icon to the game
@@ -142,7 +139,7 @@ def refill_screen():
     text = font.render("Random Letter", True, settings.WHITE)
     screen.blit(text, [10, 70])
  
-    text = font.render(current_letter, True, settings.WHITE)
+    text = font.render(current_letter.value, True, settings.WHITE)
     screen.blit(text, [10, 100])
 
     text = font.render("Countdown", True, settings.WHITE)
@@ -152,7 +149,7 @@ def refill_screen():
     screen.blit(text, [10, 180])
 
     if difficulty == settings.LETTERS_EASY:
-        screen.blit(letter_sprite[current_letter],(sprite_w,sprite_h))
+        screen.blit(letter_sprite[current_letter.value],(current_letter.width, current_letter.height))
     
     pygame.display.flip()
 
@@ -182,14 +179,14 @@ difficulty = difficulty_selection(difficulty)
 savefile = Savefile(settings.SAVE_LOCATION)
 ready_to_start()
 
-current_letter = random.choice(difficulty)
+current_letter = Letter()
+current_letter.randomize_attributes(difficulty)
 
 pygame.mixer.init()
 pygame.mixer.music.load(settings.MAIN_TUNE)
 pygame.mixer.music.play(settings.INFINITE_MUSIC_LOOP)
 
 backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
-start_ticks= clock.tick() #starter tick
 
 while True:
     for event in pygame.event.get():
@@ -197,7 +194,7 @@ while True:
             savefile.save_file()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter]:
+            if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter.value]:
         	    counter = counter_starting_value
         	    score, savefile.high_score = hf.increase_score(score, savefile.high_score)
             else:
@@ -205,10 +202,7 @@ while True:
                 if score < 0:
                     score = 0;
                     game_over()
-            current_letter = random.choice(difficulty)
-            sprite_w = randint(150, settings.WIDTH - 200)
-            sprite_h = randint(0, 500)
-            start_ticks=pygame.time.get_ticks() #starter tick
+            current_letter.randomize_attributes(difficulty)
         elif event.type == pygame.USEREVENT:
             counter = counter - 1
             if counter < 0:
@@ -217,9 +211,7 @@ while True:
                 if score < 0:
                     score = hf.set_score_to_zero(score)
                     game_over()
-                current_letter = random.choice(difficulty)
-                sprite_w = randint(150, settings.WIDTH - 200)
-                sprite_h = randint(0, 500)
+                current_letter.randomize_attributes(difficulty)
                 refill_screen()
         break
 

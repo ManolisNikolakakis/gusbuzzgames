@@ -1,10 +1,15 @@
 # gusbuzzgames
-Gusbuzz
 
-Video Games:
+Unnamed Project
 
-Rhythm Game:
+To play game download github repo from terminal. You will need pipenv, which can be downloaded from pip.
 
-For Start:
-Make 9 input buttons, game randomizes input required with 2 second frame for input
-Add score
+To run the game:
+
+pipenv shell
+python gusbuzz/main.py
+
+
+ENJOY!
+
+If you enjoyed the game please consider donating 50034$ dollars to our cause...we are but poor indie developers writing text no one will ever read to feed our insanity. 
