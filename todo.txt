@@ -1,0 +1,11 @@
+To Do List:
+
+MOST IMPORTANT: MAKE SURE CODE IS READABLE & CLEAN
+
+1) Choose name for the game
+2) Make user profiles & make unique high_score per profile and mode
+3) Add sound fx
+4) Finish proof of concept sprites
+5) Adjust score addition with how fast you react to the new letter
+6) Perhaps consider making speed mode / rhythm mode / infinite mode
+7) Find alternative backgrounds
