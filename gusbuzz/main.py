@@ -24,22 +24,20 @@ import helperFunctions as hf
 
 pygame.init()
 
-# Variables used in the game 
+### Variables used in the game ###
 
 score = 0
 font = pygame.font.Font(None, 36)
-difficulty = None
-difficulty_selected = False
 counter_starting_value = 3
 counter = counter_starting_value
-high_score = 0
+difficulty = False
 letter_sprite = {}
 
-# Functions used in the game
+### Functions used in the game ###
 
 def game_bootloader():
 	# pygame.display.set_icon(surface) // add some sort of icon to the game
-    pygame.display.set_caption("Some Video Game")
+    pygame.display.set_caption("Project Jacob")
 
 def load_splash_screen():
 
@@ -55,42 +53,17 @@ def load_splash_screen():
 
     time.sleep(1)
 
-def difficulty_selection(difficulty):
-    text = font.render("PRESS E FOR EASY (4 letters)", True, settings.RED)
-    screen.blit(text, [310, 380])   
-
-    text = font.render("PRESS M FOR MEDIUM (8 letters)", True, settings.RED)
-    screen.blit(text, [310, 410])   
-
-    text = font.render("PRESS H FOR HARD (19 letters)", True, settings.RED)
-    screen.blit(text, [310, 440])    
-
-    pygame.display.flip()
-
-    while not difficulty_selected:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-                difficulty = settings.LETTERS_EASY
-                load_images(difficulty)
-                return difficulty
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_m:
-                difficulty = settings.LETTERS_MEDIUM
-                return difficulty
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_h:
-                difficulty = settings.LETTERS_HARD
-                return difficulty
-
 def game_over():
     screen.fill(settings.BLACK)
 
-    text = font.render("GAME OVER, ΜΥΞΙΑΡΙΚΟ", True, settings.RED)
+    text = font.render(settings.text_game_over, True, settings.RED)
     screen.blit(text, [270, 270])
 
     pygame.display.flip() 
 
     time.sleep(2)
 
-    text = font.render("PRESS R TO RETRY", True, settings.WHITE)
+    text = font.render(settings.text_retry, True, settings.WHITE)
     screen.blit(text, [270, 320])  
     
     pygame.display.flip()
@@ -105,10 +78,7 @@ def ready_to_start():
 
     screen.fill(settings.BLACK)
 
-    # text = font.render("PRESS F TO START", True, settings.RED)
-    # screen.blit(text, [310, 270])    
-
-    start_message = Text("PRESS F TO START", 310, 270, settings.RED)
+    start_message = Text(settings.text_start, 310, 270, settings.RED)
     start_message.print_on_screen(font, screen)
 
     pygame.display.flip()
@@ -153,18 +123,7 @@ def refill_screen():
     
     pygame.display.flip()
 
-def load_images(difficulty):
-    for letter in difficulty:
-        letter_sprite[letter] = pygame.image.load('resources/sprites/'+letter.lower()+'.png')
-    
-
-def randomize_variables():
-    current_letter = random.choice(difficulty)
-    sprite_w = randint(100, settings.WIDTH - 200)
-    sprite_h = randint(0, 500)
-    return current_letter, sprite_h, sprite_w
-
-# Game Script Starting Point
+### Game Script Starting Point ###
 
 screen = pygame.display.set_mode(settings.SIZE)
 
@@ -175,16 +134,13 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 game_bootloader()
 load_splash_screen()
-difficulty = difficulty_selection(difficulty)
+difficulty = hf.difficulty_selection(difficulty, screen, font, letter_sprite)
 savefile = Savefile(settings.SAVE_LOCATION)
 ready_to_start()
+hf.start_music()
 
 current_letter = Letter()
 current_letter.randomize_attributes(difficulty)
-
-pygame.mixer.init()
-pygame.mixer.music.load(settings.MAIN_TUNE)
-pygame.mixer.music.play(settings.INFINITE_MUSIC_LOOP)
 
 backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
 
@@ -200,22 +156,17 @@ while True:
             else:
                 score = hf.decrease_score(score)
                 if score < 0:
-                    score = 0;
                     game_over()
+                    score = hf.set_score_to_zero(score)
             current_letter.randomize_attributes(difficulty)
         elif event.type == pygame.USEREVENT:
             counter = counter - 1
             if counter < 0:
                 counter = counter_starting_value
-                score = score - 10
+                core = hf.decrease_score(score)
                 if score < 0:
-                    score = hf.set_score_to_zero(score)
                     game_over()
+                    score = hf.set_score_to_zero(score)
                 current_letter.randomize_attributes(difficulty)
-                refill_screen()
         break
-
     refill_screen()
-
-        
-

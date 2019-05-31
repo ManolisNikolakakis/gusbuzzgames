@@ -22,10 +22,25 @@ BACKGROUND_IMAGE_STARTING_POINT = (0, 0)  # Always start from the top
 
 SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
 
+# PRINT TEXTS #
+
+text_game_over = "GAME OVER, ΜΥΞΙΑΡΙΚΟ"
+text_retry = "PRESS R TO RETRY"
+text_start = "PRESS F TO START"
+
+text_easy_mode = "PRESS E FOR EASY (4 letters)"
+text_medium_mode = "PRESS M FOR MEDIUM (8 letters)"
+text_hard_mode = "PRESS H FOR HARD (19 letters)"
+
+# SPRITES #
+
+sprites_directory =  "resources/sprites/"
+sprites_format = ".png"
+
 # DIFFICULTY # 
 
-
 # TO BE CHECKED BECAUSE THE LETTERS AT THE MOMENT ARE COMPLETELY RANDOM
+
 LETTERS_EASY = ['D', 'S', 'J', 'K']
 LETTERS_MEDIUM = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L']
 LETTERS_HARD = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L', 'Q', 'W', 'P', 'O', 'C', 'V', 'N', 'M', 'G', 'T', 'B']

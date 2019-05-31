@@ -7,6 +7,8 @@ To play game download github repo from terminal. You will need pipenv, which can
 To run the game:
 
 pipenv shell
+
+
 python gusbuzz/main.py
 
 
