@@ -15,6 +15,11 @@ from assets import settings
 # Import classes
 
 from text import Text
+from savefile import Savefile
+
+# Import other python files
+
+import HelperFunctions as hf
 
 pygame.init()
 
@@ -78,18 +83,6 @@ def difficulty_selection(difficulty):
                 difficulty = settings.LETTERS_HARD
                 return difficulty
 
-def loadfile():
-    with open(settings.SAVE_LOCATION, "r") as f:
-        data = f.readlines()
-        for line in data:
-            words = line.split()
-            return words[0]
-
-def savefile():
-    with open(settings.SAVE_LOCATION, "w") as f:
-        f.write(str(high_score))
-        return
-
 def game_over():
     screen.fill(settings.BLACK)
 
@@ -137,7 +130,7 @@ def refill_screen():
     text = font.render("High Score", True, settings.WHITE)
     screen.blit(text, [settings.WIDTH - 150, 10])
 
-    text = font.render(str(high_score), True, settings.WHITE)
+    text = font.render(str(savefile.high_score), True, settings.WHITE)
     screen.blit(text, [settings.WIDTH - 150, 40])
 
     text = font.render("Current Score", True, settings.WHITE)
@@ -186,7 +179,7 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 game_bootloader()
 load_splash_screen()
 difficulty = difficulty_selection(difficulty)
-high_score = int(loadfile())
+savefile = Savefile(settings.SAVE_LOCATION)
 ready_to_start()
 
 current_letter = random.choice(difficulty)
@@ -201,16 +194,14 @@ start_ticks= clock.tick() #starter tick
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            savefile()
+            savefile.save_file()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter]:
-        	    score = score + 10
         	    counter = counter_starting_value
-        	    if score > high_score:
-        	    	high_score = score
+        	    score, savefile.high_score = hf.increase_score(score, savefile.high_score)
             else:
-                score = score - 10
+                score = hf.decrease_score(score)
                 if score < 0:
                     score = 0;
                     game_over()
@@ -224,10 +215,10 @@ while True:
                 counter = counter_starting_value
                 score = score - 10
                 if score < 0:
-                    score = 0;
+                    score = hf.set_score_to_zero(score)
                     game_over()
                 current_letter = random.choice(difficulty)
-                sprite_w = randint(100, settings.WIDTH - 200)
+                sprite_w = randint(150, settings.WIDTH - 200)
                 sprite_h = randint(0, 500)
                 refill_screen()
         break
