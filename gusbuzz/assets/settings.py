@@ -45,41 +45,10 @@ LETTERS_EASY = ['D', 'S', 'J', 'K']
 LETTERS_MEDIUM = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L']
 LETTERS_HARD = ['A', 'S', 'D', 'F', 'H', 'J', 'K', 'L', 'Q', 'W', 'P', 'O', 'C', 'V', 'N', 'M', 'G', 'T', 'B']
 
-DIFFICULTY = {
-    'easy': (
-        pygame.K_d,
-        pygame.K_s,
-        pygame.K_j,
-        pygame.K_k
-    ),
-    'medium': (
-        pygame.K_a,
-        pygame.K_s,
-        pygame.K_d,
-        pygame.K_f,
-        pygame.K_h,
-        pygame.K_j,
-        pygame.K_k,
-        pygame.K_l
-    ),
-    'hard': (
-        pygame.K_q,
-        pygame.K_w,
-        pygame.K_a,
-        pygame.K_s,
-        pygame.K_p,
-        pygame.K_o,
-        pygame.K_l,
-        pygame.K_k,
-        pygame.K_c,
-        pygame.K_v,
-        pygame.K_n,
-        pygame.K_m,
-        pygame.K_g,
-        pygame.K_h,
-        pygame.K_t,
-        pygame.K_b
-    )
+MODE = {
+    'EASY': LETTERS_EASY,
+    'MEDIUM': LETTERS_MEDIUM,
+    'HARD': LETTERS_HARD
 }
 
 MATCHING_EVENTS_TO_LETTERS = {

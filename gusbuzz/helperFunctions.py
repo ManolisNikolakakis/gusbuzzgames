@@ -21,32 +21,3 @@ def decrease_score(score):
 def set_score_to_zero(score):
     score = 0;
     return score
-
-def load_images(difficulty, letter_sprite):
-    for letter in difficulty:
-        letter_sprite[letter] = pygame.image.load(settings.sprites_directory + letter.lower()+ settings.sprites_format)
-
-def difficulty_selection(difficulty, screen, font, letter_sprite):
-    text = font.render(settings.text_easy_mode, True, settings.RED)
-    screen.blit(text, [310, 380])   
-
-    text = font.render(settings.text_medium_mode, True, settings.RED)
-    screen.blit(text, [310, 410])   
-
-    text = font.render(settings.text_hard_mode, True, settings.RED)
-    screen.blit(text, [310, 440])    
-
-    pygame.display.flip()
-
-    difficulty = False
-
-    while not difficulty:
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_e:
-                difficulty = settings.LETTERS_EASY
-                load_images(difficulty, letter_sprite)
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_m:
-                difficulty = settings.LETTERS_MEDIUM
-            elif event.type == pygame.KEYDOWN and event.key == pygame.K_h:
-                difficulty = settings.LETTERS_HARD
-    return difficulty

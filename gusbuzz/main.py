@@ -17,6 +17,7 @@ from assets import settings
 from text import Text
 from letter import Letter
 from savefile import Savefile
+from difficulty import Difficulty
 
 # Import other python files
 
@@ -30,7 +31,6 @@ score = 0
 font = pygame.font.Font(None, 36)
 counter_starting_value = 3
 counter = counter_starting_value
-difficulty = False
 letter_sprite = {}
 
 ### Functions used in the game ###
@@ -118,8 +118,8 @@ def refill_screen():
     text = font.render(str(counter), True, settings.WHITE)
     screen.blit(text, [10, 180])
 
-    if difficulty == settings.LETTERS_EASY:
-        screen.blit(letter_sprite[current_letter.value],(current_letter.width, current_letter.height))
+    if difficulty.value == 'EASY':
+        screen.blit(difficulty.letter_sprite[current_letter.value],(current_letter.width, current_letter.height))
     
     pygame.display.flip()
 
@@ -134,13 +134,13 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 game_bootloader()
 load_splash_screen()
-difficulty = hf.difficulty_selection(difficulty, screen, font, letter_sprite)
+difficulty = Difficulty(screen, font, counter_starting_value)
 savefile = Savefile(settings.SAVE_LOCATION)
 ready_to_start()
 hf.start_music()
 
 current_letter = Letter()
-current_letter.randomize_attributes(difficulty)
+current_letter.randomize_attributes(difficulty.letters)
 
 backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
 
@@ -158,7 +158,7 @@ while True:
                 if score < 0:
                     game_over()
                     score = hf.set_score_to_zero(score)
-            current_letter.randomize_attributes(difficulty)
+            current_letter.randomize_attributes(difficulty.letters)
         elif event.type == pygame.USEREVENT:
             counter = counter - 1
             if counter < 0:
@@ -167,6 +167,6 @@ while True:
                 if score < 0:
                     game_over()
                     score = hf.set_score_to_zero(score)
-                current_letter.randomize_attributes(difficulty)
+                current_letter.randomize_attributes(difficulty.letters)
         break
     refill_screen()
