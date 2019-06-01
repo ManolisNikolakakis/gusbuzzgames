@@ -71,7 +71,7 @@ while True:
             counter = counter - 1
             if counter < 0:
                 counter = counter_starting_value
-                core = hf.decrease_score(score)
+                score = hf.decrease_score(score)
                 if score < 0:
                     hf.game_over(screen, font)
                     score = hf.set_score_to_zero(score)
