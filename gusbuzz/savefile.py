@@ -16,14 +16,14 @@ class Savefile:
     def __init__(self, path = '', name = '1'):
         self.path = path
         self.name = name
-        self.high_score = int(self.load_file())
+        self.high_score = int(self.load_high_score())
 
-    def save_file(self):
+    def save_high_score(self):
         with open(self.path, "w") as f:
             f.write(str(self.high_score))
             return
 
-    def load_file(self):
+    def load_high_score(self):
         with open(self.path, "r") as f:
             data = f.readlines()
             for line in data:

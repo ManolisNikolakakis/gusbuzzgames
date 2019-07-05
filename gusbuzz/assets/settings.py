@@ -22,6 +22,10 @@ BACKGROUND_IMAGE_STARTING_POINT = (0, 0)  # Always start from the top
 
 SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
 
+# USER PROFILES #
+
+PROFILE_LOCATIONS = 'resources/profiles'
+
 # PRINT TEXTS #
 
 text_game_over = "GAME OVER, ΜΥΞΙΑΡΙΚΟ"

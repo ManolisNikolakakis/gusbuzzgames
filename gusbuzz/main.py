@@ -41,6 +41,8 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 hf.game_bootloader()
 hf.load_splash_screen(screen, font)
+
+# user_profile = UserProfile(screen, font, counter_starting_value)
 difficulty = Difficulty(screen, font, counter_starting_value)
 savefile = Savefile(settings.SAVE_LOCATION)
 hf.ready_to_start(screen, font)
@@ -55,7 +57,7 @@ backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STA
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-            savefile.save_file()
+            savefile.save_high_score()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter.value]:
