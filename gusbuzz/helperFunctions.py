@@ -110,3 +110,20 @@ def decrease_score(score):
 def set_score_to_zero(score):
     score = 0;
     return score
+
+def ask(screen, question):
+    pygame.font.init()
+    current_string = []
+    display_box(screen, question + ": " + string.join(current_string,""))
+    while 1:
+      inkey = get_key()
+      if inkey == K_BACKSPACE:
+          current_string = current_string[0:-1]
+      elif inkey == K_RETURN:
+          break
+      elif inkey == K_MINUS:
+          current_string.append("_")
+      elif inkey <= 127:
+          current_string.append(chr(inkey))
+      display_box(screen, question + ": " + string.join(current_string,""))
+    return string.join(current_string,"")

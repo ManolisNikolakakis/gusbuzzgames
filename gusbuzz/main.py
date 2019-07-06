@@ -42,7 +42,7 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 hf.game_bootloader()
 hf.load_splash_screen(screen, font)
 
-# user_profile = UserProfile(screen, font, counter_starting_value)
+user_profile = UserProfile(screen, font, counter_starting_value)
 difficulty = Difficulty(screen, font, counter_starting_value)
 savefile = Savefile(settings.SAVE_LOCATION)
 hf.ready_to_start(screen, font)
