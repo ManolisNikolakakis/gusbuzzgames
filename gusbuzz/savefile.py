@@ -1,37 +1,30 @@
-# Standard Libraries
+from pathlib import Path
 
-import sys
-import time
-import random
-from random import randint
+from gusbuzz.assets.settings import SAVE_LOCATION
 
-# Pip installed libraries
-
-import pygame
-
-from assets.background import BackGround
-from assets import settings
 
 class Savefile:
-    def __init__(self, path = '', name = '1'):
-        self.path = path
-        self.name = name
-        self.high_score = int(self.load_file())
+
+    def __init__(self):
+        self.file_path = Path('.') / SAVE_LOCATION
+        if self.file_path.exists():
+            try:
+                self.high_score = int(self.file_path.read_text())
+            except ValueError:
+                # File does not contain a number
+                self.high_score = 0
+        else:
+            self.file_path.touch()
+            self.high_score = 0
+
+    def __str__(self):
+        return self.__repr__()
+
+    def __repr__(self):
+        return f'{self.file_path.resolve()}'
 
     def save_file(self):
-        with open(self.path, "w") as f:
-            f.write(str(self.high_score))
-            return
-
-    def load_file(self):
-        with open(self.path, "r") as f:
-            data = f.readlines()
-            for line in data:
-                words = line.split()
-                return words[0]
+        self.file_path.write_text(str(self.high_score))
 
     def delete_file(self):
-        return None
-
-    def create_file(self):
-        return None
+        self.file_path.unlink()
