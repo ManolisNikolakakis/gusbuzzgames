@@ -50,17 +50,21 @@ hf.start_music()
 current_letter = Letter()
 current_letter.randomize_attributes(difficulty.letters)
 
-backGround = BackGround(settings.BACKGROUND_IMAGE, settings.BACKGROUND_IMAGE_STARTING_POINT)
+backGround = BackGround(
+    settings.BACKGROUND_IMAGE,
+    settings.BACKGROUND_IMAGE_STARTING_POINT)
 
 while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+        if event.type == pygame.QUIT or (
+                event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             savefile.save_file()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == settings.MATCHING_EVENTS_TO_LETTERS[current_letter.value]:
-        	    counter = counter_starting_value
-        	    score, savefile.high_score = hf.increase_score(score, savefile.high_score)
+                counter = counter_starting_value
+                score, savefile.high_score = hf.increase_score(
+                    score, savefile.high_score)
             else:
                 score = hf.decrease_score(score)
                 if score < 0:
@@ -77,4 +81,12 @@ while True:
                     score = hf.set_score_to_zero(score)
                 current_letter.randomize_attributes(difficulty.letters)
         break
-    hf.refill_screen(screen, backGround, font, score, current_letter, difficulty, savefile, counter)
+    hf.refill_screen(
+        screen,
+        backGround,
+        font,
+        score,
+        current_letter,
+        difficulty,
+        savefile,
+        counter)

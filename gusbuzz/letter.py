@@ -14,13 +14,14 @@ from assets import settings
 
 # Potentially better done as subclass of text.py
 
+
 class Letter:
-    def __init__(self, value = '0', width = 0, height = 0, sprite = 0):
+    def __init__(self, value='0', width=0, height=0, sprite=0):
         self.value = str(value)
         self.width = width
         self.height = height
         self.sprite = sprite
-        #self.font = font to be implemented, needed if not sprite available
+        # self.font = font to be implemented, needed if not sprite available
 
     def randomize_attributes(self, difficulty):
         self.value = random.choice(difficulty)

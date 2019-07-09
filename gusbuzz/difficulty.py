@@ -14,8 +14,9 @@ from assets import settings
 
 # Potentially better done as subclass of text.py
 
+
 class Difficulty:
-    def __init__(self, screen, font, counter_starting_value = 0):
+    def __init__(self, screen, font, counter_starting_value=0):
         self.letter_sprite = {}
         self.letters = []
         self.mode = False
@@ -27,17 +28,18 @@ class Difficulty:
 
     def load_images(self, difficulty, letter_sprite):
         for letter in self.letters:
-            self.letter_sprite[letter] = pygame.image.load(settings.sprites_directory + letter.lower()+ settings.sprites_format)
+            self.letter_sprite[letter] = pygame.image.load(
+                settings.sprites_directory + letter.lower() + settings.sprites_format)
 
     def difficulty_selection(self, screen, font):
         text = font.render(settings.text_easy_mode, True, settings.RED)
-        screen.blit(text, [310, 380])   
+        screen.blit(text, [310, 380])
 
         text = font.render(settings.text_medium_mode, True, settings.RED)
-        screen.blit(text, [310, 410])   
+        screen.blit(text, [310, 410])
 
         text = font.render(settings.text_hard_mode, True, settings.RED)
-        screen.blit(text, [310, 440])    
+        screen.blit(text, [310, 440])
 
         pygame.display.flip()
 
@@ -49,7 +51,7 @@ class Difficulty:
                     self.mode = 'MEDIUM'
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_h:
                     self.mode = 'HARD'
-        return 
+        return
 
     def load_letters(self):
         self.letters = settings.MODE[self.mode]

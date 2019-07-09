@@ -12,8 +12,9 @@ import pygame
 from assets.background import BackGround
 from assets import settings
 
+
 class Savefile:
-    def __init__(self, path = '', name = '1'):
+    def __init__(self, path='', name='1'):
         self.path = path
         self.name = name
         self.high_score = int(self.load_file())
