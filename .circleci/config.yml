@@ -51,7 +51,7 @@ jobs:
             echo "tests are supposed to be runnin at the moment"
             echo "let's start with flake8 and see what happens..."
       #      pipenv shell
-            pytest --flake8
+            pytest "--flake8"
             exit
             echo "tests are now complete"
       #      . venv/bin/activate
