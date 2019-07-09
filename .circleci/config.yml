@@ -48,12 +48,11 @@ jobs:
       - run:
           name: run tests
           command: |
-            echo "tests are supposed to be runnin at the moment"
-            echo "let's start with flake8 and see what happens..."
+             pytest "--flake8"
+      #      echo "tests are supposed to be runnin at the moment"
+      #      echo "let's start with flake8 and see what happens..."
       #      pipenv shell
-            pytest "--flake8"
-            exit
-            echo "tests are now complete"
+      #      echo "tests are now complete"
       #      . venv/bin/activate
       #       python manage.py test
 
