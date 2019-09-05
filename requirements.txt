@@ -1,0 +1,5 @@
+## Main Libraries
+pygame==1.9.6
+
+## Dev Libraries
+pytest==5.0.1
