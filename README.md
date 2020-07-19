@@ -1,8 +1,8 @@
 # gusbuzzgames
 
-Unnamed Project
+WELCOME TO GROOVY MASH!
 
-To play game download github repo from terminal. You will need pipenv, which can be downloaded from pip.
+To play GROOVY MASH download github repo from terminal. You will need pipenv, which can be downloaded from pip.
 
 To run the game:
 

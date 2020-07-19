@@ -9,7 +9,7 @@ from text import Text
 
 def game_bootloader():
     # pygame.display.set_icon(surface) // add some sort of icon to the game
-    pygame.display.set_caption("Project Jacob")
+    pygame.display.set_caption("Groovy Mash")
 
 
 def load_splash_screen(screen, font):
