@@ -3,6 +3,8 @@
 import sys
 import time
 import random
+import os
+from pathlib import Path
 from random import randint
 
 # Pip installed libraries
@@ -16,8 +18,13 @@ from assets import settings
 class Savefile:
     def __init__(self, path='', name='1'):
         self.path = path
-        self.name = name
-        self.high_score = int(self.load_file())
+        if not os.path.isfile(self.path):
+            Path(self.path).touch()
+            self.high_score = 0;
+        else:
+            print "hallelujah\n"
+            self.name = name
+            self.high_score = int(self.load_file())
 
     def save_file(self):
         with open(self.path, "w") as f:
@@ -29,7 +36,10 @@ class Savefile:
             data = f.readlines()
             for line in data:
                 words = line.split()
-                return words[0]
+                if words[0]:
+                    return words[0]
+                else:
+                    return 0;
 
     def delete_file(self):
         return None

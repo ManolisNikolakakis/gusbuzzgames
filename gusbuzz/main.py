@@ -42,7 +42,7 @@ pygame.time.set_timer(pygame.USEREVENT, 1000)
 hf.game_bootloader()
 hf.load_splash_screen(screen, font)
 difficulty = Difficulty(screen, font, counter_starting_value)
-savefile = Savefile(settings.SAVE_LOCATION)
+savefile = Savefile(settings.SAVE_LOCATION[difficulty.mode])
 hf.ready_to_start(screen, font)
 counter = counter_starting_value
 hf.start_music()

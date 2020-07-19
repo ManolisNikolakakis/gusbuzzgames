@@ -20,7 +20,11 @@ BACKGROUND_IMAGE_STARTING_POINT = (0, 0)  # Always start from the top
 
 # SAVEFILES #
 
-SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
+SAVE_LOCATION = {
+    'EASY': 'resources/saveslots/savefileEasy.txt',
+    'MEDIUM': 'resources/saveslots/savefileMedium.txt',
+    'HARD': 'resources/saveslots/savefileHard.txt'
+}
 
 # PRINT TEXTS #
 
