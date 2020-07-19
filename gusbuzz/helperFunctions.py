@@ -1,5 +1,6 @@
 import pygame
 import time
+import sys
 from assets import settings
 from text import Text
 
@@ -26,7 +27,7 @@ def load_splash_screen(screen, font):
     time.sleep(1)
 
 
-def game_over(screen, font):
+def game_over(screen, font, savefile):
     screen.fill(settings.BLACK)
 
     text = font.render(settings.text_game_over, True, settings.RED)
@@ -39,6 +40,9 @@ def game_over(screen, font):
     text = font.render(settings.text_retry, True, settings.WHITE)
     screen.blit(text, [270, 320])
 
+    text = font.render(settings.text_escape, True, settings.WHITE)
+    screen.blit(text, [270, 380])
+
     pygame.display.flip()
 
     while True:
@@ -46,6 +50,10 @@ def game_over(screen, font):
             if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
                 ready_to_start(screen, font)
                 return
+            if event.type == pygame.QUIT or (
+                    event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                savefile.save_file()
+                sys.exit()
 
 
 def ready_to_start(screen, font):

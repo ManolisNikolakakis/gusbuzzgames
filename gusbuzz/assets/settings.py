@@ -29,6 +29,7 @@ SAVE_LOCATION = {
 # PRINT TEXTS #
 
 text_game_over = "GAME OVER, mofo"
+text_escape = "PRESS ESCAPE TO QUIT THE GAME"
 text_retry = "PRESS R TO RETRY"
 text_start = "PRESS F TO START"
 

@@ -22,7 +22,6 @@ class Savefile:
             Path(self.path).touch()
             self.high_score = 0;
         else:
-            print "hallelujah\n"
             self.name = name
             self.high_score = int(self.load_file())
 

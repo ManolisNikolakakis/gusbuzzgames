@@ -77,7 +77,7 @@ while True:
                 counter = counter_starting_value
                 score = hf.decrease_score(score)
                 if score < 0:
-                    hf.game_over(screen, font)
+                    hf.game_over(screen, font, savefile)
                     score = hf.set_score_to_zero(score)
                 current_letter.randomize_attributes(difficulty.letters)
         break
