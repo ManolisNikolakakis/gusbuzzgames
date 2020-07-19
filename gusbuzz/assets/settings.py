@@ -24,7 +24,7 @@ SAVE_LOCATION = 'resources/saveslots/savefile1.txt'
 
 # PRINT TEXTS #
 
-text_game_over = "GAME OVER, ΜΥΞΙΑΡΙΚΟ"
+text_game_over = "GAME OVER, mofo"
 text_retry = "PRESS R TO RETRY"
 text_start = "PRESS F TO START"
 
