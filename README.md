@@ -13,5 +13,3 @@ python gusbuzz/main.py
 
 
 ENJOY!
-
-If you enjoyed the game please consider donating 50034$ dollars to our cause...we are but poor indie developers writing text no one will ever read to feed our insanity. 
